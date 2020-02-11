@@ -2,11 +2,12 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { IdeaEntity } from './../../ideas/idea.entity';
+import { IdeaEntity } from '../idea.entity';
 import { IdeaDTO } from './../idea.dto';
 
 @Injectable()
 export class IdeaService {
+  
   constructor(
     @InjectRepository(IdeaEntity)
     private ideaRepository: Repository<IdeaEntity>

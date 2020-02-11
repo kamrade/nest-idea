@@ -3,7 +3,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, UsePipes, Logger } fro
 import { IdeaService } from './idea/idea.service';
 import { ValidationPipe } from '../shared/validation.pipe';
 
-@Controller('idea')
+@Controller('api/ideas')
 export class IdeaController {
 
   private logger = new Logger('IdeaController');
