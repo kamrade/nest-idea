@@ -2,6 +2,7 @@ import { IdeaDTO } from './idea.dto';
 import { Controller, Get, Post, Put, Delete, Body, Param, UsePipes, Logger } from '@nestjs/common';
 import { IdeaService } from './idea/idea.service';
 import { ValidationPipe } from '../shared/validation.pipe';
+import { IdeaEntity } from './idea.entity';
 
 @Controller('api/ideas')
 export class IdeaController {
@@ -11,13 +12,13 @@ export class IdeaController {
   constructor(private ideaService: IdeaService) {}
 
   @Get()
-  showAllIdeas() {
+  showAllIdeas(): Promise<IdeaEntity[]> {
     return this.ideaService.showAll();
   }
 
   @Post()
   @UsePipes(new ValidationPipe())
-  createIdea(@Body() data: IdeaDTO) {
+  createIdea(@Body() data: IdeaDTO): Promise<IdeaEntity> {
     this.logger.log(JSON.stringify(data));
     return this.ideaService.create(data);
   }
