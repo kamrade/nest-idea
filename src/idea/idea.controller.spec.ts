@@ -30,7 +30,6 @@ describe('Idea Controller', () => {
 
   it('showAllIdeas: should return all ideas', async () => {
     const expectedResult = new IdeaEntity();
-    console.log(expectedResult);
     expectedResult.idea = 'idea';
     expectedResult.description = 'description';
     jest.spyOn(ideaService, "showAll").mockResolvedValue([expectedResult]);
