@@ -31,6 +31,7 @@ export class AuthGuard implements CanActivate {
       // As I checked here is no reason to use await. It works correctly
       // without it. But as I know verify is async function
       // so I keept it here.
+      
       const decoded = await jwt.verify(token, process.env.SECRET);
       return decoded;
     } catch(err) {

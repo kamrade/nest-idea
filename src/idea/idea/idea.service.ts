@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { IdeaEntity } from '../idea.entity';
-import { IdeaDTO } from './../idea.dto';
+import { IdeaDTO } from '../idea.dto';
 
 @Injectable()
 export class IdeaService {
