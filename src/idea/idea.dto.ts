@@ -1,4 +1,5 @@
 import { IsString } from 'class-validator';
+import { UserRO } from '../user/user.dto';
 
 export class IdeaDTO {
   
@@ -10,3 +11,11 @@ export class IdeaDTO {
 
 }
 
+export class IdeaRO {
+  id?: string;
+  updated: Date;
+  created: Date;
+  idea: string;
+  description: string;
+  author: UserRO;
+}
