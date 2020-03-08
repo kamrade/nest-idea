@@ -18,12 +18,6 @@ export class IdeaEntity {
   @Column('text')
   description: string;
 
-  @ManyToOne((type) => UserEntity, (author) => {
-      console.log('::: author');
-      console.log(author);
-      console.log(author.ideas);
-      return author.ideas;
-    }
-  )
+  @ManyToOne( type => UserEntity, author => author.ideas )
   author: UserEntity;
 }

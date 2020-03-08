@@ -7,6 +7,11 @@ export class ValidationPipe implements PipeTransform<any> {
   
   async transform(value: any, metadata: ArgumentMetadata) {
 
+    console.log("::: value");
+    console.log(value);
+    console.log("::: metadata");
+    console.log(metadata);
+
     if (value instanceof Object && this.isEmpty(value)) {
       throw new HttpException(
         'Validation failed: No body submitted', 
@@ -41,15 +46,12 @@ export class ValidationPipe implements PipeTransform<any> {
   private formatErrors(errors: any[]) {
     return errors.map(err => {
       for (let property in err.constraints) {
-        return err.constraints[property];
+        return err.constraints[ property ];
       }
     }).join(', ');
   }
 
   private isEmpty(value: any) {
-    if (Object.keys(value).length > 0) {
-      return false;
-    }
-    return true;
+    return Object.keys(value).length <= 0;
   }
 }

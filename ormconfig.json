@@ -5,8 +5,14 @@
   "username": "postgres",
   "password": "",
   "database": "ideas",
-  "synchronize": true,
+  "synchronize": false,
   "dropSchema": false,
+  "migrations": ["migrations/**/*.ts"],
   "logging": true,
-  "entities": ["./dist/**/*.entity.js"]
+  "entities": ["./dist/**/*.entity.js"],
+  "cli": {
+    "entitiesDir": "src",
+    "migrationsDir": "migrations",
+    "subscribersDir": "subscriber"
+  }
 }
