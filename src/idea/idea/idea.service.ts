@@ -68,6 +68,7 @@ export class IdeaService {
     if (!idea) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
+    IdeaService.ensureOwnership(idea, userId);
     await this.ideaRepository.delete({ id });
     return IdeaService.toResponseObject(idea);
   }
