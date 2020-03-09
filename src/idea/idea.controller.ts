@@ -2,7 +2,6 @@ import { IdeaDTO, IdeaRO } from './idea.dto';
 import { Controller, Get, Post, Put, Delete, Body, Param, UsePipes, Logger, UseGuards } from '@nestjs/common';
 import { IdeaService } from './idea/idea.service';
 import { ValidationPipe } from '../shared/validation.pipe';
-import { IdeaEntity } from './idea.entity';
 import { AuthGuard } from '../shared/auth.guard';
 import { User } from '../user/user.decorator';
 
@@ -19,7 +18,6 @@ export class IdeaController {
     options.id && this.logger.log('IDEA ' + JSON.stringify(options.id));
   }
 
-
   @Get()
   showAllIdeas(): Promise<IdeaRO[]>{
     return this.ideaService.showAll();
@@ -33,7 +31,7 @@ export class IdeaController {
   @Post()
   @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  createIdea(@User('id') user, @Body() data: IdeaDTO): Promise<IdeaRO>  {
+  createIdea(@User('id') user, @Body() data: IdeaDTO): Promise<IdeaRO> {
     this.logData({user, data});
     return this.ideaService.create(user, data);
   }

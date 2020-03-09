@@ -1,9 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 import { UserRO } from '../user/user.dto';
 
 export class IdeaDTO {
   
   @IsString()
+  @MinLength(3, { message: "Title is too short" })
   idea: string;
 
   @IsString()
