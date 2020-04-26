@@ -24,7 +24,7 @@ export class IdeaController {
   }
 
   @Get(':id')
-  readIdea(@Param('id') id: string) {
+  readIdea(@Param('id') id: string): Promise<IdeaRO> {
     return this.ideaService.read(id);
   }
 
@@ -39,7 +39,7 @@ export class IdeaController {
   @Put(':id')
   @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  updateIdea(@Param('id') id: string, @User('id') user: string, @Body() data: Partial<IdeaDTO>) {
+  updateIdea(@Param('id') id: string, @User('id') user: string, @Body() data: Partial<IdeaDTO>): Promise<IdeaRO> {
     this.logData({ id, user, data });
     return this.ideaService.update(id, user, data);
   }

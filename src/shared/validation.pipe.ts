@@ -1,4 +1,10 @@
-import { Injectable, PipeTransform, ArgumentMetadata, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  PipeTransform,
+  ArgumentMetadata,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
@@ -7,7 +13,9 @@ export class ValidationPipe implements PipeTransform<any> {
   
   async transform(value: any, metadata: ArgumentMetadata) {
 
-    if (value instanceof Object && this.isEmpty(value)) {
+    console.log('--- value:', value);
+
+    if (value instanceof Object && ValidationPipe.isEmpty(value)) {
       throw new HttpException(
         'Validation failed: No body submitted', 
         HttpStatus.BAD_REQUEST
@@ -16,12 +24,10 @@ export class ValidationPipe implements PipeTransform<any> {
     
     const { metatype } = metadata;
 
-    if (!metatype || !this.toValidate(metatype)) {
+    if (!metatype || !ValidationPipe.toValidate(metatype)) {
       return value;
     }
     const object = plainToClass(metatype, value);
-
-    console.log(object);
 
     const errors = await validate(object);
 
@@ -30,19 +36,19 @@ export class ValidationPipe implements PipeTransform<any> {
       // throw new BadRequestException('Validation failed');
       
       throw new HttpException(
-        `Validation failed: ${this.formatErrors(errors)}`,
+        `Validation failed: ${ValidationPipe.formatErrors(errors)}`,
         HttpStatus.BAD_REQUEST
       );
     }
     return value;
   }
 
-  private toValidate(metatype: Function): boolean {
+  private static toValidate(metatype: Function): boolean {
     const types: Function[] = [String, Boolean, Number, Array, Object];
     return !types.includes(metatype);
   }
 
-  private formatErrors(errors: any[]) {
+  private static formatErrors(errors: any[]) {
     return errors.map(err => {
       for (let property in err.constraints) {
         return err.constraints[ property ];
@@ -50,7 +56,7 @@ export class ValidationPipe implements PipeTransform<any> {
     }).join(', ');
   }
 
-  private isEmpty(value: any) {
+  private static isEmpty(value: any) {
     return Object.keys(value).length <= 0;
   }
 }

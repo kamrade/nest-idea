@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
+// user data transfer object
 export class UserDTO {
 
   @IsNotEmpty()
@@ -10,6 +11,7 @@ export class UserDTO {
 
 }
 
+// user response object
 export class UserRO {
   id: string;
   username: string;
